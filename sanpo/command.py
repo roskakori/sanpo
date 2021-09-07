@@ -2,8 +2,9 @@
 # All rights reserved. Distributed under the BSD 3-Clause License.
 import argparse
 import logging
+import sys
 
-from . import __version__
+from . import __version__, log
 from .sanitize import sanitize_file
 
 
@@ -22,12 +23,19 @@ def _parsed_args(args=None):
     return parser.parse_args(args)
 
 
-def main(args=None):
+def main(args=None) -> int:
+    result = 0
+    po_path = None
     arguments = _parsed_args(args)
-    for po_path in arguments.po_paths:
-        sanitize_file(po_path)
+    try:
+        for po_path in arguments.po_paths:
+            sanitize_file(po_path)
+    except Exception as error:
+        log.error('cannot sanitize "%s": %s', po_path, error)
+        result = 1
+    return result
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    main()
+    sys.exit(main())
