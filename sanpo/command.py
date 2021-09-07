@@ -22,12 +22,16 @@ def _parsed_args(args=None):
     return parser.parse_args(args)
 
 
-def main(args=None):
+def main_without_logging_setup(args=None):
     arguments = _parsed_args(args)
     for po_path in arguments.po_paths:
         sanitize_file(po_path)
 
 
-if __name__ == "__main__":
+def main(args=None):
     logging.basicConfig(level=logging.INFO)
+    main_without_logging_setup(args)
+
+
+if __name__ == "__main__":
     main()

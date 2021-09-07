@@ -1,6 +1,6 @@
 # Copyright (c) 2021, Thomas Aglassinger
 # All rights reserved. Distributed under the BSD 3-Clause License.
-from sanpo.command import main
+from sanpo.command import main_without_logging_setup
 
 from ._common import PoFileTest
 
@@ -8,16 +8,16 @@ from ._common import PoFileTest
 class CommandTest(PoFileTest):
     def test_can_show_help(self):
         with self.assertRaises(SystemExit):
-            main(["--help"])
+            main_without_logging_setup(["--help"])
 
     def test_can_show_version(self):
         with self.assertRaises(SystemExit):
-            main(["--version"])
+            main_without_logging_setup(["--version"])
 
     def test_can_sanitize_single_file(self):
         self.write_po_file(self.test_can_sanitize_single_file.__name__)
         initial_po_lines = self.po_lines()
-        main([self.po_path])
+        main_without_logging_setup([self.po_path])
         sanitized_po_lines = self.po_lines()
         self.assertNotEqual(initial_po_lines, sanitized_po_lines)
 
@@ -31,7 +31,7 @@ class CommandTest(PoFileTest):
             po_path_to_sanitized_po_lines_map[self.po_path] = self.po_lines()
 
         po_paths_to_sanitize = list(po_path_to_sanitized_po_lines_map.keys())
-        main(po_paths_to_sanitize)
+        main_without_logging_setup(po_paths_to_sanitize)
 
         for po_path, initial_po_lines in po_path_to_sanitized_po_lines_map.items():
             sanitized_po_lines = self.po_lines(po_path)

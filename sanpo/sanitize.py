@@ -17,7 +17,7 @@ _LINE_PATTERNS_TO_REMOVE = [
     ]
 ]
 
-_log = logging.getLogger(__name__)
+_log = logging.getLogger("sanpo")
 
 
 def sanitize_file(po_path: str):
