@@ -31,6 +31,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/roskakori/sanpo",
     project_urls={
+        "Changes": "https://github.com/roskakori/sanpo/blob/main/CHANGES.md",
         "Issue Tracker": "https://github.com/roskakori/sanpo/issues",
     },
     author="Thomas Aglassinger",
