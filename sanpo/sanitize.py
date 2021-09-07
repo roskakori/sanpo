@@ -11,7 +11,9 @@ _LINE_PATTERNS_TO_REMOVE = [
         r'"POT-Creation-Date: .+\\n"',
         r'"PO-Revision-Date: .+\\n"',
         r'"Last-Translator: FULL NAME EMAIL@ADDRESS\\n"',
+        r'"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"',
         r'"Language-Team: LANGUAGE LL@li.org\\n"',
+        r'"Language-Team: LANGUAGE <LL@li.org>\\n"',
     ]
 ]
 
