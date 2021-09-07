@@ -23,7 +23,7 @@ def _parsed_args(args=None):
     return parser.parse_args(args)
 
 
-def main(args=None) -> int:
+def main_without_logging_setup(args=None) -> int:
     result = 0
     po_path = None
     arguments = _parsed_args(args)
@@ -36,6 +36,10 @@ def main(args=None) -> int:
     return result
 
 
-if __name__ == "__main__":
+def main(args=None) -> int:
     logging.basicConfig(level=logging.INFO)
+    return main_without_logging_setup(args)
+
+
+if __name__ == "__main__":
     sys.exit(main())
