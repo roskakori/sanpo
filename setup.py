@@ -37,7 +37,7 @@ setup(
     author_email="roskakori@users.sourceforge.net",
     license="BSD",
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 4 - Beta",
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",
