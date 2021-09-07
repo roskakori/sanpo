@@ -8,6 +8,9 @@ TEST_TEMP_FOLDER = os.path.join(os.path.dirname(__file__), "temp")
 
 
 class PoFileTest(TestCase):
+    def setUp(self):
+        self._po_paths_to_remove = []
+
     def write_po_file(self, test_name: str):
         po_lines = [
             "# Some translations",
@@ -27,8 +30,13 @@ class PoFileTest(TestCase):
         with open(self.po_path, "w", encoding="utf-8") as po_file:
             for po_line in po_lines:
                 po_file.write(f"{po_line}\n")
+        self._po_paths_to_remove.append(self.po_path)
 
     def po_lines(self, po_path: Optional[str] = None) -> List[str]:
         actual_po_path = po_path if po_path is not None else self.po_path
         with open(actual_po_path, encoding="utf-8") as po_file:
             return list(line.rstrip("\n") for line in po_file)
+
+    def tearDown(self):
+        for po_path_to_remove in self._po_paths_to_remove:
+            os.remove(po_path_to_remove)

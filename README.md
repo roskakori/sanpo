@@ -13,7 +13,17 @@ email based workflow.
 When creating a PO file the first time, these metadata look like this:
 
 ```
-TODO: Example.
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-06 16:16+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 ```
 
 However, when having the PO file under version control, these metadata get in
@@ -31,7 +41,7 @@ what `sanpo` does.
 
 A typical build chain would look like this:
 
-1. gettext  - collect PO file
+1. gettext - collect PO file
 2. msgfmt - compile into MO file
 3. sanpo - remove unhelpful metadata from PO
 4. commit possible changes in PO file
@@ -41,3 +51,31 @@ A typical build chain would look like this:
 ```bash
 sanpo locale/de/LC_MESSAGES/django.po locale/en/LC_MESSAGES/django.po locale/hu/LC_MESSAGES/django.po
 ```
+
+After this, the remaining metadata are:
+
+```
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+```
+
+Using the special pattern `**` folders can be scanned recursively.
+
+To sanitize PO files for all languages in a certain folder, use for example:
+
+```bash
+sanpo locale/**/django.po
+```
+
+## Django
+
+For [Django](https://www.djangoproject.com/) projects, the typical workflow
+is:
+
+1. django-admin makemessages
+2. django-admin compilemessages
+3. sanpo
+4. commit possible changes in PO file
