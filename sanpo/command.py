@@ -19,7 +19,7 @@ def _parsed_args(args=None):
         #  However, when passing multiple files this results in
         #  ResourceWarning: unclosed file <_io.TextIOWrapper...>.
         nargs="+",
-        help='PO file(s) to sanitize; use glob patterns to process multiple file; use "**" for recursive scans',
+        help='PO file(s) to sanitize; use glob patterns to process multiple files; use "**" for recursive scans',
     )
     return parser.parse_args(args)
 
