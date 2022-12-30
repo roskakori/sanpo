@@ -17,7 +17,7 @@ class CommandTest(PoFileTest):
     def test_can_sanitize_single_file(self):
         self.write_po_file(self.test_can_sanitize_single_file.__name__)
         initial_po_lines = self.po_lines()
-        self.assertEquals(main_without_logging_setup([self.po_path]), 0)
+        self.assertEqual(main_without_logging_setup([self.po_path]), 0)
         sanitized_po_lines = self.po_lines()
         self.assertNotEqual(initial_po_lines, sanitized_po_lines)
 
@@ -31,11 +31,11 @@ class CommandTest(PoFileTest):
             po_path_to_sanitized_po_lines_map[self.po_path] = self.po_lines()
 
         po_paths_to_sanitize = list(po_path_to_sanitized_po_lines_map.keys())
-        self.assertEquals(main_without_logging_setup(po_paths_to_sanitize), 0)
+        self.assertEqual(main_without_logging_setup(po_paths_to_sanitize), 0)
 
         for po_path, initial_po_lines in po_path_to_sanitized_po_lines_map.items():
             sanitized_po_lines = self.po_lines(po_path)
             self.assertNotEqual(sanitized_po_lines, initial_po_lines)
 
     def test_fails_on_non_existent_po_file(self):
-        self.assertEquals(main_without_logging_setup(["no_such.po"]), 1)
+        self.assertEqual(main_without_logging_setup(["no_such.po"]), 1)
