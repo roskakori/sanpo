@@ -1,5 +1,9 @@
 # Changes
 
+Version 0.2.1, 2023-xx-xx
+
+- Improve documentation (#5).
+
 Version 0.2.0, 2022-12-30
 
 - Remove support for Python 3.6

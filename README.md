@@ -1,3 +1,10 @@
+[![PyPI](https://img.shields.io/pypi/v/sanpo)](https://pypi.org/project/sanpo/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/sanpo.svg)](https://www.python.org/downloads/)
+[![Build Status](https://github.com/roskakori/sanpo/actions/workflows/build.yaml/badge.svg)](https://github.com/roskakori/sanpo/actions/workflows/build.yaml)
+[![Test Coverage](https://img.shields.io/coveralls/github/roskakori/sanpo)](https://coveralls.io/r/roskakori/sanpo?branch=main)
+[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License](https://img.shields.io/github/license/roskakori/sanpo)](https://opensource.org/licenses/BSD-3-Clause)
+
 # sanpo
 
 `sanpo` is a command line tool to sanitize PO files from gettext for version
@@ -5,7 +12,7 @@ control.
 
 ## The problem
 
-The [gettext](https://www.gnu.org/software/gettext/) collects text to be
+The [gettext](https://www.gnu.org/software/gettext/) tool collects text to be
 translated from source code in PO files that can be sent to translators. These
 files contain metadata about the project that can be helpful when using an
 email based workflow.
@@ -29,15 +36,15 @@ When creating a PO file the first time, these metadata look like this:
 However, when having the PO file under version control, these metadata get in
 the way. Most of them are available from the commit history. And when
 running `gettext` automatically as part of the build process, the
-`PO-Revision-Date` get updated every time even if none of the messages
+`PO-Revision-Date` gets updated every time even if none of the messages
 changed, resulting in spuriously modified PO files without any actual
 changes worth committing.
 
 ## The solution
 
-Your localized software does not use the PO files directly but the MO files
-compiled from them, they unhelpful metadata can be removed. Which is exactly
-what `sanpo` does.
+Because your localized software does not use the PO files directly but the MO
+files compiled from them, the unhelpful metadata can be removed. Which is
+exactly what `sanpo` does.
 
 A typical build chain would look like this:
 
