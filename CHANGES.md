@@ -1,8 +1,9 @@
 # Changes
 
-Version 0.2.1, 2023-xx-xx
+Version 0.2.1, 2023-08-23
 
 - Improve documentation (#5).
+- Drop Python 3.7.
 
 Version 0.2.0, 2022-12-30
 
