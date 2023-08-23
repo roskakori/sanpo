@@ -2,8 +2,8 @@
 
 Version 0.2.1, 2023-08-23
 
-- Improve documentation (#5).
-- Drop Python 3.7.
+- Remove support for Python 3.7 (#9)
+- Improve documentation (#6)
 
 Version 0.2.0, 2022-12-30
 
