@@ -32,7 +32,7 @@ testpaths = [
 
 [tool.poetry]
 name = "sanpo"
-version = "0.2.0"
+version = "0.2.1"
 description = "Sanitize PO files from gettext for version control"
 readme = "README.md"
 authors = ["Thomas Aglassinger <roskakori@users.sourceforge.net>"]
@@ -67,12 +67,12 @@ pygments = "^2"
 chardet = "^5"
 
 [tool.poetry.dev-dependencies]
-wheel = "^0.38.4"
+wheel = "^0.41"
 coveralls = "^3.3.1"
-coverage = "^6.5.0"
-pytest = "^7.2.0"
-pytest-cov = "^4.0.0"
-pre-commit = "^2.21.0"
+coverage = "^6"
+pytest = "^7"
+pytest-cov = "^4"
+pre-commit = "^3"
 twine = "^4"
 
 [tool.poetry.scripts]
