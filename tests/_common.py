@@ -1,7 +1,7 @@
 # Copyright (c) 2021, Thomas Aglassinger
 # All rights reserved. Distributed under the BSD 3-Clause License.
 import os
-from typing import List, Optional
+from typing import Optional
 from unittest import TestCase
 
 TEST_TEMP_FOLDER = os.path.join(os.path.dirname(__file__), "temp")
@@ -32,7 +32,7 @@ class PoFileTest(TestCase):
                 po_file.write(f"{po_line}\n")
         self._po_paths_to_remove.append(self.po_path)
 
-    def po_lines(self, po_path: Optional[str] = None) -> List[str]:
+    def po_lines(self, po_path: Optional[str] = None) -> list[str]:
         actual_po_path = po_path if po_path is not None else self.po_path
         with open(actual_po_path, encoding="utf-8") as po_file:
             return list(line.rstrip("\n") for line in po_file)
