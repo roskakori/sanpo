@@ -10,7 +10,7 @@ jobs:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
     env:
-      MAIN_PYTHON_VERSION: "3.12"  # Same as Ububtu 24 LTS
+      MAIN_PYTHON_VERSION: "3.12"  # Same as Ubuntu 24 LTS
 
     steps:
       - uses: actions/checkout@v3
