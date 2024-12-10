@@ -1,5 +1,9 @@
 # Changes
 
+Version 0.2.2, 2024-12-10
+
+- Remove support for Python 3.8 and update dependencies (#10)
+
 Version 0.2.1, 2023-08-23
 
 - Remove support for Python 3.7 (#9)

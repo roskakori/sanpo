@@ -2,10 +2,11 @@
 line-length = 120
 include = '\.pyi?$'
 target-version = [
-    "py38",
     "py39",
     "py310",
     "py311",
+    "py312",
+    "py313",
 ]
 exclude = '''
 /(
@@ -32,7 +33,7 @@ testpaths = [
 
 [tool.poetry]
 name = "sanpo"
-version = "0.2.1"
+version = "0.2.2"
 description = "Sanitize PO files from gettext for version control"
 readme = "README.md"
 authors = ["Thomas Aglassinger <roskakori@users.sourceforge.net>"]
@@ -48,11 +49,12 @@ classifiers = [
         "Natural Language :: English",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Topic :: Software Development :: Build Tools",
         "Topic :: Software Development :: Internationalization",
         "Topic :: Software Development :: Version Control",
@@ -62,18 +64,17 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8, <4.0.0"
+python = ">=3.9, <4.0.0"
 pygments = "^2"
 chardet = "^5"
 
 [tool.poetry.dev-dependencies]
-wheel = "^0.41"
-coveralls = "^3.3.1"
-coverage = "^6"
-pytest = "^7"
-pytest-cov = "^4"
-pre-commit = "^3"
-twine = "^4"
+wheel = "^0.45"
+coverage = "^7"
+pytest = "^8"
+pytest-cov = "^6"
+pre-commit = "^4"
+twine = "^6"
 
 [tool.poetry.scripts]
 sanpo = "sanpo.command:main"
@@ -86,5 +87,5 @@ sanpo = "sanpo.command:main"
 max-line-length = 120
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.9.1"]
 build-backend = "poetry.core.masonry.api"
