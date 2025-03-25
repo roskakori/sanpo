@@ -35,7 +35,7 @@ class PoFileTest(TestCase):
     def po_lines(self, po_path: Optional[str] = None) -> list[str]:
         actual_po_path = po_path if po_path is not None else self.po_path
         with open(actual_po_path, encoding="utf-8") as po_file:
-            return list(line.rstrip("\n") for line in po_file)
+            return [line.rstrip("\n") for line in po_file]
 
     def tearDown(self):
         for po_path_to_remove in self._po_paths_to_remove:
