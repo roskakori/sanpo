@@ -2,7 +2,7 @@
 # All rights reserved. Distributed under the BSD 3-Clause License.
 from unittest import TestCase
 
-from sanpo.sanitize import sanitize_file, sanitize_lines
+from sanpo.sanitize import sanitize_file, sanitized_lines
 from tests._common import PoFileTest
 
 
@@ -17,7 +17,7 @@ class SanitizationTest(TestCase):
             r'"Language-Team: LANGUAGE LL@li.org\n"',
             "PRESERVE",
         ]
-        self.assertEqual(list(sanitize_lines(source_lines)), ["PRESERVE"])
+        self.assertEqual(list(sanitized_lines(source_lines)), ["PRESERVE"])
 
     def test_can_preserve_metadata_lines(self):
         source_lines = [
@@ -26,7 +26,7 @@ class SanitizationTest(TestCase):
             r'"Last-Translator: John Doe john@example.com\n"',
             r'"Language-Team: en en@example.com\n"',
         ]
-        self.assertEqual(list(sanitize_lines(source_lines)), source_lines)
+        self.assertEqual(list(sanitized_lines(source_lines)), source_lines)
 
 
 class TransformFileTest(PoFileTest):

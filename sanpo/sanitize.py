@@ -2,6 +2,8 @@
 # All rights reserved. Distributed under the BSD 3-Clause License.
 import logging
 import re
+from collections.abc import Iterable
+from pathlib import Path
 
 _LINE_PATTERNS_TO_REMOVE = [
     re.compile(line)
@@ -20,16 +22,17 @@ _LINE_PATTERNS_TO_REMOVE = [
 _log = logging.getLogger("sanpo")
 
 
-def sanitize_file(po_path: str):
+def sanitize_file(po_path: Path):
+    assert isinstance(po_path, Path), f"po_path must be a Path: {po_path!r}"
     _log.info("sanitizing %s", po_path)
-    with open(po_path, encoding="utf-8") as po_file:
-        lines_to_write = list(sanitize_lines(po_file))
-    with open(po_path, "w", encoding="utf-8") as po_file:
+    with po_path.open(encoding="utf-8") as po_file:
+        lines_to_write = list(sanitized_lines(po_file))
+    with po_path.open("w", encoding="utf-8") as po_file:
         for line_to_write in lines_to_write:
             po_file.write(line_to_write)
 
 
-def sanitize_lines(source_lines):
+def sanitized_lines(source_lines: Iterable[str]) -> Iterable[str]:
     for line in source_lines:
         line_has_to_be_removed = any(
             line_pattern_to_remove.match(line) for line_pattern_to_remove in _LINE_PATTERNS_TO_REMOVE
