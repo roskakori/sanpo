@@ -1,6 +1,6 @@
 # Changes
 
-Version 0.2.3, 2025-ß3-25
+Version 0.2.3, 2025-03-25
 
 - Change build and packaging to uv (#16)
 - Change linting to ruff (#16)
