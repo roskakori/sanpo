@@ -1,5 +1,10 @@
 # Changes
 
+Version 0.2.3, 2025-ß3-25
+
+- Change build and packaging to uv (#16)
+- Change linting to ruff (#16)
+
 Version 0.2.2, 2024-12-10
 
 - Remove support for Python 3.8 and update dependencies (#14)
