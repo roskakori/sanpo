@@ -30,6 +30,7 @@ uv run pytest
 2. Test and build the distribution archives:
    ```bash
    $ uv run pytest
+   $ rm -rf dist
    $ uv build
    ```
 3. Tag a release (simply replace 0.x.x with the current version number):

@@ -22,14 +22,22 @@ _LINE_PATTERNS_TO_REMOVE = [
 _log = logging.getLogger("sanpo")
 
 
-def sanitize_file(po_path: Path):
-    assert isinstance(po_path, Path), f"po_path must be a Path: {po_path!r}"
-    _log.info("sanitizing %s", po_path)
-    with po_path.open(encoding="utf-8") as po_file:
+def sanitize_file(po_path: Path | str):
+    actual_po_path = path_from(po_path)
+    _log.info("sanitizing %s", actual_po_path)
+    with actual_po_path.open(encoding="utf-8") as po_file:
         lines_to_write = list(sanitized_lines(po_file))
-    with po_path.open("w", encoding="utf-8") as po_file:
+    with actual_po_path.open("w", encoding="utf-8") as po_file:
         for line_to_write in lines_to_write:
             po_file.write(line_to_write)
+
+
+def path_from(po_path: Path | str) -> Path:
+    if isinstance(po_path, Path):
+        return po_path
+    if isinstance(po_path, str):
+        return Path(po_path)
+    raise TypeError(f"po_path must be a Path or str, but is {type(po_path)}: {po_path!r}")
 
 
 def sanitized_lines(source_lines: Iterable[str]) -> Iterable[str]:
