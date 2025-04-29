@@ -1,6 +1,6 @@
 [project]
 name = "sanpo"
-version = "0.2.4"
+version = "0.2.5"
 description = "Sanitize PO files from gettext for version control"
 authors = [{ name = "Thomas Aglassinger", email = "roskakori@users.sourceforge.net" }]
 requires-python = ">=3.9, <4"

@@ -1,5 +1,9 @@
 # Changes
 
+Version 0.2.5, 2025-04-29
+
+- Fix `AssertionError`: po_path must be a Path (#23)
+
 Version 0.2.4, 2025-04-29
 
 - Fix internal handling of default command line arguments (#21)
