@@ -4,6 +4,7 @@ import logging
 import re
 from collections.abc import Iterable
 from pathlib import Path
+from typing import Union
 
 _LINE_PATTERNS_TO_REMOVE = [
     re.compile(line)
@@ -22,7 +23,7 @@ _LINE_PATTERNS_TO_REMOVE = [
 _log = logging.getLogger("sanpo")
 
 
-def sanitize_file(po_path: Path | str):
+def sanitize_file(po_path: Union[Path, str]):
     actual_po_path = path_from(po_path)
     _log.info("sanitizing %s", actual_po_path)
     with actual_po_path.open(encoding="utf-8") as po_file:
@@ -32,7 +33,7 @@ def sanitize_file(po_path: Path | str):
             po_file.write(line_to_write)
 
 
-def path_from(po_path: Path | str) -> Path:
+def path_from(po_path: Union[Path, str]) -> Path:
     if isinstance(po_path, Path):
         return po_path
     if isinstance(po_path, str):
