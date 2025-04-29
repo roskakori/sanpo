@@ -29,7 +29,7 @@ def _parsed_args(args=None):
 def main_without_logging_setup(args=None) -> int:
     result = 0
     po_path = None
-    actual_args = [(str(arg) if isinstance(arg, Path) else arg) for arg in args]
+    actual_args = [(str(arg) if isinstance(arg, Path) else arg) for arg in args] if args is not None else None
     sanitized_file_count = 0
     arguments = _parsed_args(actual_args)
     try:

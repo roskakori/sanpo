@@ -1,6 +1,6 @@
 [project]
 name = "sanpo"
-version = "0.2.3"
+version = "0.2.4"
 description = "Sanitize PO files from gettext for version control"
 authors = [{ name = "Thomas Aglassinger", email = "roskakori@users.sourceforge.net" }]
 requires-python = ">=3.9, <4"
@@ -45,14 +45,16 @@ sanpo = "sanpo.command:main"
 
 [dependency-groups]
 dev = [
-    "coverage>=7,<8",
-    "pytest>=8,<9",
-    "pytest-cov>=6,<7",
-    "pre-commit>=4,<5",
+    "coverage~=7.8",
+    "hatchling",
+    "pytest~=8.3",
+    "pytest-cov~=6.1",
+    "pre-commit~=4.2",
+    "ruff", # NOTE Because ruff still regularly changes, use the most current for now. Eventually pin it.
 ]
 
 [tool.pytest.ini_options]
-minversion = "6.0"
+minversion = "8.3.5"
 addopts = [
     "-rA"
 ]

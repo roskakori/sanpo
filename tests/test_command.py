@@ -1,5 +1,9 @@
 # Copyright (c) 2021, Thomas Aglassinger
 # All rights reserved. Distributed under the BSD 3-Clause License.
+from unittest.mock import patch
+
+import pytest
+
 from sanpo.command import main_without_logging_setup
 
 from ._common import PoFileTest
@@ -37,5 +41,18 @@ class CommandTest(PoFileTest):
             sanitized_po_lines = self.po_lines(po_path)
             self.assertNotEqual(sanitized_po_lines, initial_po_lines)
 
+    def test_can_sanitize_none_arguments(self):
+        self.write_po_file(self.test_can_sanitize_none_arguments.__name__)
+        with patch("sys.argv", ["sanpo", str(self.po_path)]):
+            assert main_without_logging_setup() == 0
+
     def test_fails_on_non_existent_po_file(self):
         self.assertEqual(main_without_logging_setup(["no_such.po"]), 1)
+
+    def test_fails_on_no_po_files(self):
+        with (
+            pytest.raises(SystemExit) as error,
+            patch("sys.argv", ["sanpo"]),
+        ):
+            main_without_logging_setup()
+        assert error.value.code == 2
