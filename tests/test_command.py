@@ -4,9 +4,9 @@ from unittest.mock import patch
 
 import pytest
 
-from sanpo.command import main_without_logging_setup
+from sanpo.command import main_without_logging_setup, po_paths_from
 
-from ._common import PoFileTest
+from ._common import TEST_TEMP_FOLDER, PoFileTest
 
 
 class CommandTest(PoFileTest):
@@ -45,6 +45,23 @@ class CommandTest(PoFileTest):
         self.write_po_file(self.test_can_sanitize_none_arguments.__name__)
         with patch("sys.argv", ["sanpo", str(self.po_path)]):
             assert main_without_logging_setup() == 0
+
+    def test_can_skip_virtual_environments(self):
+        self.write_po_file_with_name_parts(["valid.po"])
+        self.write_po_file_with_name_parts(["some", "valid.po"])
+        self.write_po_file_with_name_parts([".venv", "skip.po"])
+        self.write_po_file_with_name_parts(["venv", "skip.po"])
+        self.write_po_file_with_name_parts(["venv_kinky", "lib", "python3.14", "site-packages", "skip.po"])
+        po_paths = list(po_paths_from([TEST_TEMP_FOLDER / "**" / "*.po"]))
+        assert len(po_paths) == 2, f"po_path={po_paths}"
+        for po_path in po_paths:
+            assert po_path.name != "skip.po", f"po_path={po_path}"
+
+    def test_can_process_folder_paths_without_po_pattern(self):
+        self.write_po_file_with_name_parts(["some", "valid.po"])
+        po_paths = list(po_paths_from([TEST_TEMP_FOLDER]))
+        assert len(po_paths) == 1, f"po_path={po_paths}"
+        assert po_paths[0].name == "valid.po"
 
 
 def test_fails_on_non_existent_po_file():

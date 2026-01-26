@@ -4,10 +4,13 @@ import argparse
 import glob
 import logging
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 
 from . import __version__, log
 from .sanitize import sanitize_file
+
+_FOLDER_NAMES_TO_SKIP = {".venv", "site-packages", "venv"}
 
 
 def _parsed_args(args=None):
@@ -16,12 +19,14 @@ def _parsed_args(args=None):
     parser.add_argument(
         "po_paths",
         metavar="PO-FILE",
-        # NOTE: We should be able to use type=argparse.FileType("r") here.
-        #  However, when passing multiple files this results in
-        #  ResourceWarning: unclosed file <_io.TextIOWrapper...>.
         nargs="+",
         type=Path,
-        help='PO file(s) to sanitize; use glob patterns to process multiple files; use "**" for recursive scans',
+        help=(
+            "PO file(s) to sanitize; "
+            "use glob patterns to process multiple files; "
+            'use "**" for recursive scans; '
+            "use folders to recursively process all PO files inside them"
+        ),
     )
     return parser.parse_args(args)
 
@@ -33,16 +38,9 @@ def main_without_logging_setup(args=None) -> int:
     sanitized_file_count = 0
     arguments = _parsed_args(actual_args)
     try:
-        for po_path_pattern in arguments.po_paths:
-            if po_path_pattern.is_file():
-                sanitize_file(po_path_pattern)
-                sanitized_file_count += 1
-            else:
-                for po_path in glob.iglob(str(po_path_pattern), recursive=True):  # noqa: PTH207
-                    # There does not seem to be a way for `path.glob(pattern)` to separate `path` from the `pattern`,
-                    # while `iglob(path_with_pattern)` can process a single combined path and pattern.
-                    sanitize_file(po_path)
-                    sanitized_file_count += 1
+        for po_path in po_paths_from(arguments.po_paths):
+            sanitize_file(po_path)
+            sanitized_file_count += 1
     except Exception as error:
         log.error('cannot sanitize "%s": %s', po_path, error)
         result = 1
@@ -53,6 +51,27 @@ def main_without_logging_setup(args=None) -> int:
             log.error("cannot find any PO-FILE matching the specified glob pattern(s)")
             result = 1
     return result
+
+
+def po_paths_from(po_path_patterns: list[str]) -> Iterator[Path]:
+    for po_path_pattern in po_path_patterns:
+        po_path_pattern_path = Path(po_path_pattern)
+        if po_path_pattern_path.is_file():
+            yield po_path_pattern_path
+        else:
+            if po_path_pattern_path.is_dir():
+                po_path_pattern_path = po_path_pattern_path / "**" / "*.po"
+            for po_path_name in glob.iglob(str(po_path_pattern_path), recursive=True):  # noqa: PTH207
+                # NOTE: There does not seem to be a way for `path.glob(pattern)` to separate `path`
+                #  from the `pattern`, while `iglob(path_with_pattern)` can process a single
+                #  combined path and pattern.
+                # HACK This is inefficient because it traverses all subfolders inside e.g. ".venv"
+                #  even though the technically could be skipped. A more efficient solution using
+                #  e.g. `Path.walk()` would require more code and would be harder to maintain.
+                po_path = Path(po_path_name)
+                is_path_to_skip = bool(_FOLDER_NAMES_TO_SKIP.intersection(set(po_path.parts)))
+                if not is_path_to_skip:
+                    yield po_path
 
 
 def main(args=None) -> int:
