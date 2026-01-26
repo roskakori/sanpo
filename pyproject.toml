@@ -1,9 +1,9 @@
 [project]
 name = "sanpo"
-version = "0.2.5"
+version = "0.3.0"
 description = "Sanitize PO files from gettext for version control"
 authors = [{ name = "Thomas Aglassinger", email = "roskakori@users.sourceforge.net" }]
-requires-python = ">=3.9, <4"
+requires-python = ">=3.10, <4"
 readme = "README.md"
 license = "BSD-3-Clause"
 keywords = [
@@ -20,11 +20,12 @@ classifiers = [
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Topic :: Software Development :: Build Tools",
     "Topic :: Software Development :: Internationalization",
     "Topic :: Software Development :: Version Control",
@@ -45,16 +46,16 @@ sanpo = "sanpo.command:main"
 
 [dependency-groups]
 dev = [
-    "coverage~=7.8",
+    "coverage~=7.13",
     "hatchling",
-    "pytest~=8.3",
-    "pytest-cov~=6.1",
-    "pre-commit~=4.2",
+    "pytest~=9.0",
+    "pytest-cov~=7.0",
+    "pre-commit~=4.5",
     "ruff", # NOTE Because ruff still regularly changes, use the most current for now. Eventually pin it.
 ]
 
 [tool.pytest.ini_options]
-minversion = "8.3.5"
+minversion = "9.0.2"
 addopts = [
     "-rA"
 ]
@@ -87,7 +88,7 @@ exclude = [
     "htmlcov",
 ]
 line-length = 120
-target-version = "py39"
+target-version = "py310"
 
 [tool.ruff.lint]
 ignore = [

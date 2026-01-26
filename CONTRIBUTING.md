@@ -44,3 +44,4 @@ uv run pytest
    ```
 5. Publish the related
    [GitHub release](https://github.com/roskakori/sanpo/releases/new).
+6. Close the related [milestone](https://github.com/roskakori/sanpo/milestones).

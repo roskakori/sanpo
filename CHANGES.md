@@ -1,5 +1,12 @@
 # Changes
 
+Version 0.3.0, 2026-01-26
+
+- If the specified path is a folder, scan recursively for PO files (#25)
+- Ignore virtual environments when scanning for PO files (#25)
+- Update dependencies
+- Drop support for Python 3.9
+
 Version 0.2.5, 2025-04-29
 
 - Fix `AssertionError`: po_path must be a Path (#23)
