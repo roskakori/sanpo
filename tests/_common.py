@@ -1,7 +1,6 @@
 # Copyright (c) 2021, Thomas Aglassinger
 # All rights reserved. Distributed under the BSD 3-Clause License.
 from pathlib import Path
-from typing import Optional
 from unittest import TestCase
 
 TEST_TEMP_FOLDER = Path(__file__).parent / "temp"
@@ -30,7 +29,7 @@ class PoFileTest(TestCase):
         self.po_path.write_text("\n".join(po_lines) + "\n")
         self._po_paths_to_remove.append(self.po_path)
 
-    def po_lines(self, po_path: Optional[Path] = None) -> list[str]:
+    def po_lines(self, po_path: Path | None = None) -> list[str]:
         actual_po_path = po_path if po_path is not None else self.po_path
         return actual_po_path.read_text().split("\n")
 
